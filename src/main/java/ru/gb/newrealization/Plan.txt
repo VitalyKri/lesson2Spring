@@ -42,7 +42,7 @@ public class InjectFoodStuffAnnotationBeanPostProcessor implements BeanPostProce
 2) заполняются параметры в конфигурации listOfFoodStuff=mean,fish,cookies,apple
 3) значение поля задается через ссылку на тег @Value("${listOfFoodStuff}")
 PS бин пост процессоры прогоняются раньше через происходит чтение свойств
-Для этого используется ухишрение
+Для этого используется ухищрение
 // пробегают раньше
     @Autowired
     Environment environment;
