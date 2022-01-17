@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- bean definitions here -->
+
+    <!-- по этим свойствам будет заполнятся map в фабрике Spring -->
+    <!-- описание 1 объект -->
+    <bean class="ru.gb.newrealization.WantMessageProvider" id="provider"/>
+
+    <!-- описание 2 объект, и указали в нем зависимости -->
+    <bean class="ru.gb.newrealization.ConsoleMessageRender" id="render">
+      <!--<property name="messageProvider" ref="provider"/>-->
+        <constructor-arg name="messageProvider" ref="provider"/>
+    </bean>
+
+    <context:component-scan base-package="ru.gb"/>
+
+    <!--Для чтение стандартных постпроцессоров
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
+    сейчас используют аннотацию компонент
+    <bean class="ru.gb.newrealization.InjectFoodStuffAnnotationBeanPostProcessor"/>
+       -->
+</beans>

@@ -1,0 +1,59 @@
+
+создать bean
+!!1) создается context.xml
+2) заполнется шаблон context (в гугл spring context xml)
+3) new ClassPathXmlApplicationContext("context.xml");
+4) context.getBean(MessageRender.class);
+5) работать с инстансами.
+OR
+
+!!1) используем  new AnnotationConfigApplicationContext(HelloConfiguration.class)
+2) ставим тег @Configuration
+              @ComponentScan("ru.gb") (считывает все классы которые лежат в 1 пакете, а потом служебные препроцессоры
+              HelloConfiguration
+3) используем аннотацию @Component для бинов
+4) используем аннотацию @Primary если бинов много (этот будет приоритет)
+5) a) используем аннотацию @Autowired для полей в которые вставляются другие бины
+   б)или указать конкретный (@Qualifier("like")) явно
+   в) Так не делать @Profile("hello") (другие профили исключаются если они одного порядка)
+    указывает при запуске виртуальный машины (VM options) -Dspring.profiles.active=hello.
+6) PostConstruct после создания
+7) PreDestroy при уничтожении
+
+
+
+
+add
+
+@ @Autowired за место new
+добавляет связи на новый бин
+На поле
+На конструктор
+на геттер
+или написать private final и spring Добавить зависимости сам
+@Component
+public class InjectFoodStuffAnnotationBeanPostProcessor implements BeanPostProcessor
+1)это доп аннотация которая будет работать в нужный момент
+2)// используется для полей postProcessBeforeInitialization
+3)// используется для доработки методов postProcessAfterInitialization
+
+!!чтение значений из настроек
+1) у конфигурации устанавливается файл настроек @PropertySource("classpath:application.properties")
+2) заполняются параметры в конфигурации listOfFoodStuff=mean,fish,cookies,apple
+3) значение поля задается через ссылку на тег @Value("${listOfFoodStuff}")
+PS бин пост процессоры прогоняются раньше через происходит чтение свойств
+Для этого используется ухишрение
+// пробегают раньше
+    @Autowired
+    Environment environment;
+
+    @PostConstruct
+    public void init(){
+       food = environment.getProperty("listOfFoodStuff").split(",");
+    }
+    String[] food;
+
+!!из сингтон создать прототип
+создается прокся, которая будет вызываться за место нашего метода
+@Lookup вызывает новый объект
+
