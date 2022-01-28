@@ -1,0 +1,22 @@
+1) настраивается maven
+2) создается WebConfig implements WebApplicationInitializer
+    а) регистрируется контекст приложения
+    б) контекст приложения регистрируется в контексте  servletContext
+    в) определяется порядок загрузки (в нем указывается, что обрабатывает все upl
+3) нужно создать контроллер spring для url MessageController
+4) нужно создать файлы (морду) для браузера ("/WEB-INF/view/);
+5) нужно создать бин (см. HelloConfiguration), который будет смотреть на эти файлы  ViewResolver  (у контроллера настраиваем, суффикс и префикс
+6) создается обработчкик для списка объектов MessageRepository
+7) создается сервис, который буфер MessageService
+8) создается функционал по обработчику списка (форма создания, обработчик формы создания и редактирования, показать 1 элемент, показать много элементов)
+
+
+доп.
+1) добавить атрибут в ответ можно через абстрацию public String printMessage(Model model){ model.addAttribute("msg",messageProvider.getMessage());}
+    или будет работать при вызове всегда @ModelAttribute("info") public String addAttribute(){ return "тра-ла-ла";}
+
+2) Optional обертка (в которой null можно)
+
+3) считывания параметров из URL spring  @RequestParam(name = "random", defaultValue = "false",required = false)
+
+4) перенаправление  return "redirect:/message/all";
